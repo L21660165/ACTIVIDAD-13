@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Convertidor de Unidades</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    .converter {
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
+    }
+    .converter h2 {
+      text-align: center;
+    }
+    .converter div {
+      margin-bottom: 10px;
+    }
+    label {
+      font-weight: bold;
+    }
+    input, select {
+      width: 100%;
+      padding: 8px;
+      margin-top: 5px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+    }
+    .result {
+      margin-top: 20px;
+      font-size: 1.2em;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="converter">
+    <h2>Convertidor de Unidades</h2>
+    <div>
+      <label for="inputValue">Valor a convertir:</label>
+      <input type="number" id="inputValue" placeholder="Ingresa un valor" oninput="convert()">
+    </div>
+    <div>
+      <label for="inputUnit">Unidad de entrada:</label>
+      <select id="inputUnit" onchange="convert()">
+        <option value="meters">Metros</option>
+        <option value="kilometers">Kilómetros</option>
+        <option value="miles">Millas</option>
+      </select>
+    </div>
+    <div>
+      <label for="outputUnit">Unidad de salida:</label>
+      <select id="outputUnit" onchange="convert()">
+        <option value="meters">Metros</option>
+        <option value="kilometers">Kilómetros</option>
+        <option value="miles">Millas</option>
+      </select>
+    </div>
+    <div class="result">
+      <p id="result">Resultado: --</p>
+    </div>
+  </div>
+
+  <script>
+    function convert() {
+      let inputValue = document.getElementById('inputValue').value;
+      let inputUnit = document.getElementById('inputUnit').value;
+      let outputUnit = document.getElementById('outputUnit').value;
+      let result = document.getElementById('result');
+
+      if (inputValue === "") {
+        result.innerHTML = "Resultado: --";
+        return;
+      }
+
+      // Convertir el valor de entrada a metros
+      let valueInMeters;
+      if (inputUnit === "meters") {
+        valueInMeters = parseFloat(inputValue);
+      } else if (inputUnit === "kilometers") {
+        valueInMeters = parseFloat(inputValue) * 1000;
+      } else if (inputUnit === "miles") {
+        valueInMeters = parseFloat(inputValue) * 1609.34;
+      }
+
+      // Convertir de metros a la unidad de salida
+      let convertedValue;
+      if (outputUnit === "meters") {
+        convertedValue = valueInMeters;
+      } else if (outputUnit === "kilometers") {
+        convertedValue = valueInMeters / 1000;
+      } else if (outputUnit === "miles") {
+        convertedValue = valueInMeters / 1609.34;
+      }
+
+      result.innerHTML = `Resultado: ${convertedValue.toFixed(4)}`;
+    }
+  </script>
+
+</body>
+</html>
